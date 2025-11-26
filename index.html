@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Asyiah Aksesoris - Toko Online</title>
+  <style>
+    :root{
+      --pink:#ff9fc0;
+      --pink-2:#ffc7dd;
+      --accent:#ff5b8a;
+      --bg:#fff6fa;
+      --card:#ffffffaa;
+      --muted:#6b6b6b;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,var(--bg),#fff);color:#222}
+    header{background:linear-gradient(90deg,var(--pink),var(--pink-2));padding:20px;text-align:center;color:#fff}
+    .brand{display:flex;gap:12px;align-items:center;justify-content:center}
+    .logo{width:64px;height:64px;border-radius:12px;background:rgba(255,255,255,0.25);display:flex;align-items:center;justify-content:center;font-weight:700}
+    h1{margin:0;font-size:28px}
+    p.lead{margin:6px 0 0 0;opacity:0.95}
+
+    main{max-width:1000px;margin:22px auto;padding:16px}
+    .grid{display:grid;grid-template-columns:1fr 320px;gap:20px}
+    @media(max-width:880px){.grid{grid-template-columns:1fr}}
+
+    .products{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+    .card{background:var(--card);padding:12px;border-radius:14px;box-shadow:0 6px 18px rgba(0,0,0,0.06);}
+    .card img{width:100%;height:160px;object-fit:cover;border-radius:10px}
+    .card h3{margin:8px 0 4px 0;font-size:16px}
+    .price{font-weight:700;color:var(--accent)}
+    .meta{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
+    .btn{background:var(--accent);color:#fff;border:none;padding:8px 12px;border-radius:10px;cursor:pointer}
+    .btn.secondary{background:transparent;border:1px solid rgba(0,0,0,0.06);color:#222}
+
+    aside{position:sticky;top:20px;height:fit-content}
+    .cart{background:linear-gradient(180deg,#fff,#fff6);padding:16px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.06)}
+    .cart h3{margin:0 0 10px 0}
+    .cart-items{max-height:300px;overflow:auto;margin-bottom:10px}
+    .cart-row{display:flex;gap:8px;align-items:center;padding:8px;border-radius:8px}
+    .cart-row img{width:48px;height:48px;object-fit:cover;border-radius:8px}
+    .cart-row .n{flex:1}
+    .small{font-size:13px;color:var(--muted)}
+    .total{display:flex;justify-content:space-between;margin-top:8px;font-weight:700}
+
+    form.checkout{margin-top:12px;display:grid;gap:8px}
+    input,textarea,select{padding:10px;border-radius:8px;border:1px solid #eee;width:100%;font-size:14px}
+    .muted-note{font-size:13px;color:var(--muted)}
+    footer{padding:18px;text-align:center;color:var(--muted)}
+
+    /* small helpers */
+    .center{display:flex;align-items:center;justify-content:center}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo">AA</div>
+      <div>
+        <h1>Asyiah Aksesoris</h1>
+        <p class="lead">Aksesoris mewah — cantik & elegan (pink aesthetic)</p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="grid">
+      <section>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <h2 style="margin:0">Produk</h2>
+          <div class="small muted-note">Pilih gambar, nama, dan harga di dalam kode jika ingin mengubah</div>
+        </div>
+
+        <div class="products" id="products"></div>
+
+      </section>
+
+      <aside>
+        <div class="cart">
+          <h3>Keranjang</h3>
+          <div class="cart-items" id="cartItems">
+            <div class="small muted-note">Keranjang kosong</div>
+          </div>
+          <div class="total"><span>Total</span><span id="totalPrice">Rp0</span></div>
+
+          <form class="checkout" id="checkoutForm" onsubmit="event.preventDefault(); checkout()">
+            <input type="text" id="custName" placeholder="Nama pembeli (wajib)" required />
+            <input type="text" id="custAddress" placeholder="Alamat / Kota (wajib)" required />
+            <textarea id="custNote" placeholder="Catatan (opsional)" rows="2"></textarea>
+            <div class="muted-note">Pesanan akan dikirim langsung ke WhatsApp penjual setelah klik "Checkout ke WhatsApp".</div>
+            <button class="btn" type="submit">Checkout ke WhatsApp</button>
+          </form>
+
+          <div style="margin-top:10px;font-size:13px;color:var(--muted)">Atau hubungi: <strong>0838-7631- 6684</strong></div>
+        </div>
+      </aside>
+    </div>
+
+    <section style="margin-top:18px;text-align:center;color:var(--muted)">
+      <p>Alamat toko: <strong>Jl. Contoh Cantik No.1, Kota Anda</strong></p>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> Asyiah Aksesoris — Made with 💗
+  </footer>
+
+  <script>
+    // --- CONFIG: ubah barang di sini (gambar bisa diganti dengan path lokal atau URL) ---
+    const PRODUCTS = [
+      {id:1,name:'Kalung Mutiara Pink',price:125000,img:'https://images.unsplash.com/photo-1520975698519-1c7d1418b8fb?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder'},
+      {id:2,name:'Anting Kristal Elegant',price:95000,img:'https://images.unsplash.com/photo-1525826593734-7cad5b0d6ad6?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder'},
+      {id:3,name:'Gelang Emas Tipis',price:78000,img:'https://images.unsplash.com/photo-1585386959984-a4155229d0b6?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder'},
+      {id:4,name:'Cincin Berlian Mini',price:150000,img:'https://images.unsplash.com/photo-1549880338-65ddcdfd017b?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder'},
+      {id:5,name:'Bros Bunga Mewah',price:45000,img:'https://images.unsplash.com/photo-1536627143168-0d6b6a4f5f1f?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder'},
+      {id:6,name:'Pouch Aksesoris Pink',price:39000,img:'https://images.unsplash.com/photo-1555529669-6c1b2b2f3f5b?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder'}
+    ];
+    // NOTE: Ganti nomor WA di bawah ini ke format internasional tanpa tanda +. Contoh: 6281234567890
+    const WHATSAPP_NUMBER = '6283876316684'; // hasil konversi dari 0838-7631- 6684
+
+    // --- aplikasi sederhana ---
+    const productsEl = document.getElementById('products');
+    const cartItemsEl = document.getElementById('cartItems');
+    const totalPriceEl = document.getElementById('totalPrice');
+    const yearEl = document.getElementById('year');
+
+    let cart = [];
+
+    function rupiah(n){
+      return 'Rp'+n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")
+    }
+
+    function renderProducts(){
+      productsEl.innerHTML = '';
+      PRODUCTS.forEach(p=>{
+        const card = document.createElement('div');card.className='card';
+        card.innerHTML = `
+          <img src="${p.img}" alt="${p.name}" onerror="this.style.objectFit='contain'" />
+          <h3>${p.name}</h3>
+          <div class="meta"><div class="price">${rupiah(p.price)}</div><button class="btn" onclick="addToCart(${p.id})">Tambah</button></div>
+        `;
+        productsEl.appendChild(card);
+      })
+    }
+
+    function renderCart(){
+      cartItemsEl.innerHTML = '';
+      if(cart.length===0){ cartItemsEl.innerHTML='<div class="small muted-note">Keranjang kosong</div>'; totalPriceEl.textContent='Rp0'; return }
+      cart.forEach(item=>{
+        const p = PRODUCTS.find(x=>x.id===item.id);
+        const row = document.createElement('div');row.className='cart-row';
+        row.innerHTML = `<img src="${p.img}" alt="${p.name}" onerror="this.style.objectFit='contain'" />
+          <div class="n">
+            <div style="font-weight:600">${p.name}</div>
+            <div class="small">${rupiah(p.price)} x ${item.qty}</div>
+          </div>
+          <div style="display:flex;gap:6px;align-items:center">
+            <button class="btn secondary" onclick="changeQty(${item.id}, -1)">-</button>
+            <div class="small">${item.qty}</div>
+            <button class="btn" onclick="changeQty(${item.id}, 1)">+</button>
+          </div>`;
+        cartItemsEl.appendChild(row);
+      })
+      const total = cart.reduce((s,it)=>{ const p=PRODUCTS.find(x=>x.id===it.id); return s + p.price*it.qty },0);
+      totalPriceEl.textContent = rupiah(total);
+    }
+
+    function addToCart(id){
+      const found = cart.find(c=>c.id===id);
+      if(found) found.qty++;
+      else cart.push({id,qty:1});
+      renderCart();
+    }
+    function changeQty(id,delta){
+      const idx = cart.findIndex(c=>c.id===id);
+      if(idx===-1) return;
+      cart[idx].qty += delta;
+      if(cart[idx].qty<=0) cart.splice(idx,1);
+      renderCart();
+    }
+
+    function checkout(){
+      if(cart.length===0){ alert('Keranjang kosong. Tambahkan produk terlebih dahulu.'); return }
+      const name = document.getElementById('custName').value.trim();
+      const address = document.getElementById('custAddress').value.trim();
+      const note = document.getElementById('custNote').value.trim();
+      if(!name || !address){ alert('Tuliskan nama dan alamat pembeli.'); return }
+
+      const lines = [];
+      lines.push('Pesanan baru dari Asyiah Aksesoris');
+      lines.push('Nama: '+name);
+      lines.push('Alamat: '+address);
+      lines.push('');
+      lines.push('Daftar pesanan:');
+      let total=0;
+      cart.forEach(it=>{
+        const p = PRODUCTS.find(x=>x.id===it.id);
+        lines.push(`- ${p.name} x${it.qty} = ${rupiah(p.price*it.qty)}`);
+        total += p.price*it.qty;
+      })
+      lines.push('');
+      lines.push('Total: '+rupiah(total));
+      if(note) lines.push('Catatan: '+note);
+      lines.push('Mohon konfirmasi ketersediaan dan cara pembayaran. Terima kasih.');
+
+      const text = encodeURIComponent(lines.join('\n'));
+      const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
+
+      // open WhatsApp (mobile opens app if tersedia)
+      window.open(waLink,'_blank');
+    }
+
+    // init
+    renderProducts(); renderCart(); yearEl.textContent = new Date().getFullYear();
+
+  </script>
+</body>
+</html>
