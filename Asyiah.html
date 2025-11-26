@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asyiah Aksesoris</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: #505050;
+            color: white;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #e8491d 3px solid;
+        }
+        header a {
+            color: #ffffff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+        header ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            overflow: hidden;
+        }
+        header li {
+            float: left;
+            display: inline;
+            padding: 0 20px 0 20px;
+        }
+        header #branding {
+            float: left;
+        }
+        header #branding h1 {
+            margin: 0;
+        }
+        header nav {
+            float: right;
+            margin-top: 10px;
+        }
+        header .highlight, header .current a {
+            color: #e8491d;
+            font-weight: bold;
+        }
+        header a:hover {
+            color: #cccccc;
+            font-weight: bold;
+        }
+        #showcase {
+            min-height: 400px;
+            background:url('bg.jpeg') no-repeat;
+            text-align: center;
+            color: #ffffff;
+        }
+        #showcase h1 {
+            margin-top: 100px;
+            font-size: 55px;
+            margin-bottom: 10px;
+        }
+        #newsletter {
+            padding: 15px;
+            color: #ffffff;
+            background: #35424a;
+        }
+        #newsletter h1 {
+            float: left;
+        }
+        #newsletter form {
+            float: right;
+            margin-top: 15px;
+        }
+        #newsletter input[type="email"] {
+            padding: 4px;
+            height: 25px;
+            width: 250px;
+        }
+        .button_1 {
+            height: 38px;
+            background: #e8491d;
+            border: 0;
+            padding-left: 20px;
+            padding-right: 20px;
+            color: #ffffff;
+        }
+        #boxes {
+            margin-top: 20px;
+        }
+        #boxes .box {
+            float: left;
+            text-align: center;
+            width: 30%;
+            padding: 10px;
+        }
+        #boxes .box img {
+            width: 90px;
+        }
+        footer {
+            padding: 20px;
+            margin-top: 20px;
+            color: #ffffff;
+            background-color: #e8491d;
+            text-align: center;
+        }
+
+        /* Produk */
+        .product {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #fff;
+        }
+        .product img {
+            width: 100%;
+            max-width: 300px;
+        }
+
+        /* Popup */
+        #orderPopup {
+            display:none; 
+            position: fixed; 
+            top: 0; left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(0,0,0,0.6); 
+            justify-content: center; 
+            align-items: center;
+        }
+        #popupBox {
+            background: #fff; 
+            padding: 20px; 
+            width: 90%; 
+            max-width: 400px; 
+            border-radius: 10px;
+        }
+        #popupBox input, #popupBox textarea, #popupBox select {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        @media(max-width: 768px) {
+            header #branding,
+            header nav,
+            header nav li,
+            #newsletter h1,
+            #newsletter form,
+            #boxes .box {
+                float: none;
+                text-align: center;
+                width: 100%;
+            }
+            header {
+                padding-bottom: 20px;
+            }
+            #showcase h1 {
+                margin-top: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1>Asyiah Aksesoris</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li class="current"><a href="index.html">Beranda</a></li>
+                    <li><a href="about.html">Tentang</a></li>
+                    <li><a href="services.html">Layanan</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="showcase">
+        <div class="container">
+            <h1>Aksesoris Cantik untuk Penampilanmu</h1>
+            <p>Temukan koleksi aksesoris terbaru dan terindah hanya di Asyiah Aksesoris.</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <section id="products">
+            <h2>Produk Unggulan</h2>
+
+            <div class="product">
+                <img src="gelang1.jpg">
+                <h3>Gelang Manik-Manik Elegan</h3>
+                <p>Gelang dengan desain elegan, cocok untuk berbagai acara.</p>
+                <button onclick="openOrderPopup('Gelang Manik-Manik Elegan', 50000)">Pesan via WhatsApp</button>
+            </div>
+
+            <div class="product">
+                <img src="gelang2.jpg">
+                <h3>Gelang Tali Simpul Minimalis</h3>
+                <p>Gelang simpel namun stylish, ideal untuk penggunaan sehari-hari.</p>
+                <button onclick="openOrderPopup('Gelang Tali Simpul Minimalis', 35000)">Pesan via WhatsApp</button>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>Asyiah Aksesoris © 2024</p>
+    </footer>
+
+    <!-- POPUP WHATSAPP -->
+    <div id="orderPopup">
+        <div id="popupBox">
+            <h2>Konfirmasi Pesanan</h2>
+
+            <label>Nama:</label>
+            <input type="text" id="waName">
+
+            <label>Alamat:</label>
+            <textarea id="waAddress" rows="3"></textarea>
+
+            <label>Metode Pembayaran:</label>
+            <select id="waPayment">
+                <option>COD (Bayar di Tempat)</option>
+                <option>Transfer Bank</option>
+                <option>E-Wallet (Dana/OVO/GoPay)</option>
+            </select>
+
+            <label>Catatan Tambahan (Opsional):</label>
+            <textarea id="waNote" rows="2"></textarea>
+
+            <input type="hidden" id="waProductName">
+            <input type="hidden" id="waProductPrice">
+
+            <button style="background:#e8491d;color:white;padding:10px;border:none;width:100%;" onclick="sendToWhatsApp()">Kirim ke WhatsApp</button>
+            <br><br>
+            <button onclick="closePopup()" style="width:100%;">Batal</button>
+        </div>
+    </div>
+
+<script>
+const waNumber = "6283876316684";
+
+// buka popup
+function openOrderPopup(name, price) {
+    document.getElementById("waProductName").value = name;
+    document.getElementById("waProductPrice").value = price;
+
+    document.getElementById("orderPopup").style.display = "flex";
+}
+
+// tutup
+function closePopup() {
+    document.getElementById("orderPopup").style.display = "none";
+}
+
+// kirim ke whatsapp
+function sendToWhatsApp() {
+    let name = document.getElementById("waName").value;
+    let address = document.getElementById("waAddress").value;
+    let payment = document.getElementById("waPayment").value;
+    let note = document.getElementById("waNote").value;
+
+    let product = document.getElementById("waProductName").value;
+    let price = document.getElementById("waProductPrice").value;
+
+    if (name === "" || address === "") {
+        alert("Nama dan alamat wajib diisi!");
+        return;
+    }
+
+    let message = 
+`Halo Asyiah Aksesoris, saya ingin memesan:
+
+Produk: ${product}
+Harga: Rp ${price}
+
+Nama: ${name}
+Alamat: ${address}
+Metode Pembayaran: ${payment}
+Catatan: ${note}
+
+Terima kasih!`;
+
+    let url = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
+    window.open(url, "_blank");
+
+    closePopup();
+}
+</script>
+
+</body>
+</html>
